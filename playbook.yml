@@ -2,9 +2,6 @@
   hosts: localhost
   connection: local
 
-  vars:
-    rg-swarm-{{ instance }}
-
   vars_files:
     - ./vars/external_vars.yml
 
