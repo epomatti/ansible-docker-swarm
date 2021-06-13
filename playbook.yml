@@ -6,6 +6,7 @@
     - ./vars/external_vars.yml
 
   tasks:
+
     - name: Create resource group
       azure_rm_resourcegroup:
         name: "rg-swarm-{{ instance }}"
@@ -20,14 +21,20 @@
         address_prefixes: "10.0.0.0/16"
       register: vnet
 
+    - name: Add managers subnet
+      azure_rm_subnet:
+        resource_group: "{{ resource_group.state.name }}"
+        name: Subnet-Managers-001
+        address_prefix: "10.0.10.0/27"
+        virtual_network: "{{ vnet.state.name }}"
 
+    - name: Add workers subnet
+      azure_rm_subnet:
+        resource_group: "{{ resource_group.state.name }}"
+        name: Subnet-Workers-001
+        address_prefix: "10.0.20.0/24"
+        virtual_network: "{{ vnet.state.name }}"
 
-  # - name: Add subnet
-  #   azure_rm_subnet:
-  #     resource_group: myResourceGroup
-  #     name: mySubnet
-  #     address_prefix: "10.0.1.0/24"
-  #     virtual_network: myVnet
   # - name: Create public IP address
   #   azure_rm_publicipaddress:
   #     resource_group: myResourceGroup
