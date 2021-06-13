@@ -7,9 +7,9 @@
 
   tasks:
     - name: Create resource group
-    azure_rm_resourcegroup:
-      name: "rg-swarm-{{ environment }}"
-      location: {{ location }}
+      azure_rm_resourcegroup:
+        name: "rg-swarm-{{ environment }}"
+        location: {{ location }}
 
 
   # - name: Create virtual network
