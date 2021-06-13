@@ -2,6 +2,9 @@
   hosts: localhost
   connection: local
 
+  vars:
+    rg-swarm-{{ instance }}
+
   vars_files:
     - ./vars/external_vars.yml
 
@@ -11,13 +14,14 @@
         name: rg-swarm-{{ instance }}
         location: "{{ location }}"
         tags: "{{ tags }}"
+        register: resource_group
 
-
-  # - name: Create virtual network
-  #   azure_rm_virtualnetwork:
-  #     resource_group: swarm
-  #     name: myVnet
-  #     address_prefixes: "10.0.0.0/16"
+    - debug: var=resource_group.state.name
+    # - name: Create virtual network
+    #   azure_rm_virtualnetwork:
+    #     resource_group: swarm
+    #     name: myVnet
+    #     address_prefixes: "10.0.0.0/16"
 
 
 
