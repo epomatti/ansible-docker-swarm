@@ -11,7 +11,7 @@
   tasks:
     - name: Create resource group
       azure_rm_resourcegroup:
-        name: rg-swarm-{{ instance }}
+        name: "rg-swarm-{{ instance }}"
         location: "{{ location }}"
         tags: "{{ tags }}"
         register: resource_group
