@@ -7,12 +7,16 @@
 
   tasks:
 
+    ### Group ###
+
     - name: Create resource group
       azure_rm_resourcegroup:
         name: "rg-swarm-{{ instance }}"
         location: "{{ location }}"
         tags: "{{ tags }}"
       register: resource_group
+
+    ### Networking ###
 
     - name: Create virtual network
       azure_rm_virtualnetwork:
@@ -34,6 +38,10 @@
         name: Subnet-Workers-001
         address_prefix: "10.0.20.0/24"
         virtual_network: "{{ vnet.state.name }}"
+
+    
+
+    
 
   # - name: Create public IP address
   #   azure_rm_publicipaddress:
