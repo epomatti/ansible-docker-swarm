@@ -15,7 +15,7 @@
 
     - name: Create virtual network
       azure_rm_virtualnetwork:
-        resource_group: {{ resource_group.state.name }}
+        resource_group: "{{ resource_group.state.name }}"
         name: "vnet-swarm-{{ instance }}"
         address_prefixes: "10.0.0.0/16"
       register: vnet
