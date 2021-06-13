@@ -10,7 +10,6 @@
       azure_rm_resourcegroup:
         name: rg-swarm-{{ instance }}
         location: "{{ location }}"
-        tags: "{{ tags }}"
 
 
   # - name: Create virtual network
