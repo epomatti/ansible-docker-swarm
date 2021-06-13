@@ -11,7 +11,7 @@
         name: "rg-swarm-{{ instance }}"
         location: "{{ location }}"
         tags: "{{ tags }}"
-        register: resource_group
+      register: resource_group
 
     - debug: var=resource_group.state.name
     # - name: Create virtual network
