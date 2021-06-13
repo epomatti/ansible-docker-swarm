@@ -1,8 +1,17 @@
 # Docker Swarm with Ansible
 
-Code to provision and configure a Docker Swarm distributed cluster on Azure Cloud using Ansible playbooks.
+Code to provision and configure a Docker Swarm cluster on Azure Cloud using Ansible playbooks.
 
-## 
+## Swarm
+
+![Swarm Cluster](cluster.png)
+
+
+## Running it
+
+```sh
+ansible-playbook release.yml --extra-vars "@some_file.json"
+```
 
 ## Sources
 
