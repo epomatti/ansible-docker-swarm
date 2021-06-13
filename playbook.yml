@@ -13,12 +13,12 @@
         tags: "{{ tags }}"
       register: resource_group
 
-    - debug: var=resource_group.state.name
-    # - name: Create virtual network
-    #   azure_rm_virtualnetwork:
-    #     resource_group: swarm
-    #     name: myVnet
-    #     address_prefixes: "10.0.0.0/16"
+    - name: Create virtual network
+      azure_rm_virtualnetwork:
+        resource_group: {{ resource_group.state.name }}
+        name: "vnet-swarm-{{ instance }}"
+        address_prefixes: "10.0.0.0/16"
+      register: vnet
 
 
 
