@@ -1,0 +1,36 @@
+ip addr show
+
+docker swarm init --advertise-addr 10.0.1.6
+
+sudo docker swarm init --advertise-addr 10.0.1.6
+    docker swarm join --token SWMTKN-1-6amoykvy7ilpuxh6e3m7amj8k7b0be2r5iq4miyuv7ran5wvo8-bangrfhzhdz5vafy6hc3148xx 10.0.1.6:2377
+
+https://upcloud.com/community/tutorials/docker-swarm-orchestration/
+
+sudo docker swarm leave
+
+sudo docker service rm nginx
+
+sudo docker service ps nginx
+
+sudo docker network create \
+--driver overlay \
+--subnet 192.168.0.0/12 \
+--opt encrypted \
+services
+
+lp2ztf030gtjifan304ceffdb
+
+
+sudo docker service create \
+--replicas 3 \
+--name nginx \
+--network services \
+--publish 80:80 \
+nginx
+
+sudo docker service ps nginx
+
+
+docker exec -it <container name> /bin/bash
+docker exec -it  /bin/bash
