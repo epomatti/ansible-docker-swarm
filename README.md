@@ -35,6 +35,7 @@ ansible-playbook src/install-docker-playbook.yml -l remote
 Optionally, you may want to run Ansible locally.
 
 ```sh
+sudo apt-get install python3-venv
 python3 -m venv env
 . env/bin/activate
 pip install --upgrade pip
