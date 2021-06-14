@@ -1,0 +1,109 @@
+- name: Create Docker Swarm Cluster
+  hosts: localhost
+  connection: local
+
+  vars:
+    # Project name to used as part of resource names
+    project: swarm
+
+    # The location of the Azure resources
+    location: eastus
+
+    # environemnt instance
+    instance_config:
+      development:
+        abbreviation: dev
+      test:
+        abbreviation: test
+      production:
+        abbreviation: prod
+
+    instance_affix: "{{ instance_config[instance].abbreviation }}"
+    resource_suffix: "{{ project }}-{{ instance_affix }}"
+
+    rg_tags:
+      owner: "Evandro Pomatti"
+
+  tasks:
+    # Group
+    - name: Create resource group
+      azure.azcollection.azure_rm_resourcegroup:
+        name: "rg-{{ resource_suffix }}"
+        location: "{{ location }}"
+        tags: "{{ rg_tags }}"
+      register: resource_group
+
+    # Network
+    - name: Create virtual network
+      azure.azcollection.azure_rm_virtualnetwork:
+        resource_group: "{{ resource_group.state.name }}"
+        name: "vnet-{{ resource_suffix }}"
+        address_prefixes: "10.0.0.0/16"
+      register: vnet
+
+    - name: Add managers subnet
+      azure.azcollection.azure_rm_subnet:
+        resource_group: "{{ resource_group.state.name }}"
+        name: Managers-Subnet
+        address_prefix: "10.0.10.0/27"
+        virtual_network: "{{ vnet.state.name }}"
+      register: managers_subnet
+
+    - name: Add workers subnet
+      azure.azcollection.azure_rm_subnet:
+        resource_group: "{{ resource_group.state.name }}"
+        name: Workers-Subnet
+        address_prefix: "10.0.20.0/24"
+        virtual_network: "{{ vnet.state.name }}"
+      register: workers_subnet
+
+    # Firewall
+    - name: Create security group that allows SSH
+      azure.azcollection.azure_rm_securitygroup:
+        resource_group: "{{ resource_group.state.name }}"
+        name: "nsg-{{ resource_suffix }}"
+        rules:
+          - name: SSH
+            protocol: Tcp
+            destination_port_range: 22
+            access: Allow
+            priority: 101
+            direction: Inbound
+      register: nsg
+
+    # Storage Account
+    - name: create a storage account
+      azure.azcollection.azure_rm_storageaccount:
+        resource_group: "{{ resource_group.state.name }}"
+        name: "st{{ project }}{{ instance_affix }}"
+        type: Standard_LRS
+      register: storage
+
+    - name: Create VHDS container
+      azure_rm_storageblob:
+        resource_group: "{{ resource_group.state.name }}"
+        storage_account_name: "{{ storage.state.name }}"
+        container: vhds
+
+    # Virutal Machines - Managers
+    - import_tasks: vm.yml
+      vars:
+        vm_name_affix: manager001
+        vm_subnet: "{{ managers_subnet.state.name }}"
+        vm_nsg: "{{ nsg.state.name }}"
+        vm_size: Standard_D2_v3
+        ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
+        storage_account: "{{ storage.state.name }}"
+      async: 600
+      poll: 5
+
+    # Virutal Machines - Workers
+    - import_tasks: vm.yml
+      vars:
+        vm_name_affix: worker001
+        vm_subnet: "{{ workers_subnet.state.name }}"
+        vm_nsg: "{{ nsg.state.name }}"
+        vm_size: Standard_D2_v3
+        ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
+        storage_account: "{{ storage.state.name }}"
+        
