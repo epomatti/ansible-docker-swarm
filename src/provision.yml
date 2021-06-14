@@ -96,11 +96,11 @@
         storage_account: "{{ storage.state.name }}"
 
     # Virutal Machines - Workers
-    - import_tasks: vm.yml
-      vars:
-        vm_name_affix: worker001
-        vm_subnet: "{{ workers_subnet.state.name }}"
-        vm_nsg: "{{ nsg.state.name }}"
-        vm_size: Standard_D2_v3
-        ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
-        storage_account: "{{ storage.state.name }}"
+    # - import_tasks: vm.yml
+    #   vars:
+    #     vm_name_affix: worker001
+    #     vm_subnet: "{{ workers_subnet.state.name }}"
+    #     vm_nsg: "{{ nsg.state.name }}"
+    #     vm_size: Standard_D2_v3
+    #     ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
+    #     storage_account: "{{ storage.state.name }}"

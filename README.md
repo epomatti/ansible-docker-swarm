@@ -5,7 +5,7 @@ Code to provision and configure a Docker Swarm cluster on Azure Cloud using Ansi
 :construction: Under Construction :construction:
 
 - [x] Azure provisioning
-- [ ] Docker Engine (Under development)
+- [x] Docker Engine (Under development)
 - [ ] Swarm Cluster
 
 ## Swarm
@@ -22,7 +22,17 @@ ansible-playbook src/provision.yml \
     --extra-vars '{"instance":"development","ssh_key_file_path":"~/.ssh/id_rsa.pub"}'
 ```
 
-Edit Ansible inventory (TODO)
+Create or edit Ansible inventory file `/etc/inventory/hosts` with VMs IP Addresses:
+
+```ini
+[remote]
+remote_test
+
+[remote:vars]
+ansible_host=IP_ADDRESS_OF_VIRTUAL_MACHINE
+ansible_ssh_private_key_file=~/.ssh/YOUR_SSH_PRIVATE_KEY_FILE
+ansible_user=YOUR_USERNAME
+```
 
 Install Docker:
 
