@@ -16,7 +16,17 @@ ansible-playbook src/provision.yml
     --extra-vars '{"instance":"development","ssh_key_file_path":"~/.ssh/id_rsa.pub"}'
 ```
 
-Optionally, you may want to run Ansible locally:
+Edit Ansible inventory (TODO)
+
+Install Docker:
+
+```sh
+ansible-playbook src/install-docker-playbook.yml -l remote
+```
+
+### Local Ansible
+
+Optionally, you may want to run Ansible locally.
 
 ```sh
 python3 -m venv env
