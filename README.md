@@ -2,6 +2,12 @@
 
 Code to provision and configure a Docker Swarm cluster on Azure Cloud using Ansible playbooks.
 
+:construction: Under Construction :construction:
+
+- [x] Azure provisioning
+- [ ] Docker Engine
+- [ ] Swarm Cluster
+
 ## Swarm
 
 ![Swarm Cluster](docs/cluster.png)
