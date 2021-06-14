@@ -5,7 +5,7 @@ Code to provision and configure a Docker Swarm cluster on Azure Cloud using Ansi
 :construction: Under Construction :construction:
 
 - [x] Azure provisioning
-- [ ] Docker Engine (In development)
+- [ ] Docker Engine (Under development)
 - [ ] Swarm Cluster
 
 ## Swarm
