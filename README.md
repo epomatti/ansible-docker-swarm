@@ -12,10 +12,11 @@ Code to provision and configure a Docker Swarm cluster on Azure Cloud using Ansi
 Log in to Azure Cloud Shell and run the playbooks:
 
 ```sh
-ansible-playbook src/provision.yml --extra-vars '{"instance":"development","ssh_key_file_path":"~/.ssh/id_rsa.pub"}'
+ansible-playbook src/provision.yml
+    --extra-vars '{"instance":"development","ssh_key_file_path":"~/.ssh/id_rsa.pub"}'
 ```
 
-If you prefer to run locally then install the required dependences:
+Optionally, you may want to run Ansible locally:
 
 ```sh
 python3 -m venv env
@@ -27,14 +28,4 @@ pip install 'ansible'
 
 ## Sources
 
-[Ansible Azure Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html)
-
-[Ansible Azure collections](https://docs.ansible.com/ansible/latest/collections/azure/azcollection/index.html)
-
-[Azure Ansible Quickstart](https://docs.microsoft.com/en-us/azure/developer/ansible/vm-configure?tabs=ansible#complete-sample-ansible-playbook)
-
-[Reuse playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse.html)
-
-[Run Ansible in Parallel](https://toptechtips.github.io/2019-07-09-ansible_run_playbooks_tasks_in_parallel/)
-
-[Install docker remotely with Ansible](https://www.rechberger.io/tutorial-install-docker-using-ansible-on-a-remote-server/)
+[Ansible Azure Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html) | [Ansible Azure collections](https://docs.ansible.com/ansible/latest/collections/azure/azcollection/index.html) | [Azure Ansible Quickstart](https://docs.microsoft.com/en-us/azure/developer/ansible/vm-configure?tabs=ansible#complete-sample-ansible-playbook) | [Reuse playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse.html) | [Run Ansible in Parallel](https://toptechtips.github.io/2019-07-09-ansible_run_playbooks_tasks_in_parallel/) | [Install docker remotely with Ansible](https://www.rechberger.io/tutorial-install-docker-using-ansible-on-a-remote-server/)

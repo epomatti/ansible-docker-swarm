@@ -94,8 +94,6 @@
         vm_size: Standard_D2_v3
         ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
         storage_account: "{{ storage.state.name }}"
-      async: 600
-      poll: 5
 
     # Virutal Machines - Workers
     - import_tasks: vm.yml
@@ -106,4 +104,3 @@
         vm_size: Standard_D2_v3
         ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
         storage_account: "{{ storage.state.name }}"
-        
