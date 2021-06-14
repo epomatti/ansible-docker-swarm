@@ -12,7 +12,7 @@ Code to provision and configure a Docker Swarm cluster on Azure Cloud using Ansi
 Log in to Azure Cloud Shell and run the playbooks:
 
 ```sh
-ansible-playbook src/provision.yml
+ansible-playbook src/provision.yml \
     --extra-vars '{"instance":"development","ssh_key_file_path":"~/.ssh/id_rsa.pub"}'
 ```
 
