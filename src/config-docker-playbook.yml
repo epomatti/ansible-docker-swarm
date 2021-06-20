@@ -1,0 +1,30 @@
+---
+- name: Install Docker
+  hosts: all
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: "yes"
+        force_apt_get: "yes"
+      become: yes
+
+    - name: Install pip
+      apt:
+        name: python3-pip
+        state: present
+        force_apt_get: "yes"
+      become: yes
+
+    - name: Install Docker SDK for Python
+      shell: pip3 install docker
+
+    - name: Create docker group
+      shell: groupadd docker --force
+
+    - name: Add user to group
+      shell: usermod -aG docker azureuser
+      become: yes
+
+    # # - name: Refresh group
+    # #   shell: newgrp docker

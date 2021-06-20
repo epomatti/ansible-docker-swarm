@@ -1,0 +1,27 @@
+---
+- name: Create Managers
+  hosts: all
+
+  tasks:
+    - name: Init a new swarm with default parameters
+      community.docker.docker_swarm:
+        state: present
+        advertise_addr: "{{ private_ip_address }}"
+      register: swarm
+      when: "'managers' in group_names and 'workers' not in group_names"
+
+    - name: Manager Token
+      set_fact:
+        join_token_manager: "{{ swarm.swarm_facts.JoinTokens.Manager }}"
+      when: join_token_manager is not defined
+
+    - name: Worker Token
+      set_fact:
+        join_token_worker: "{{ swarm.swarm_facts.JoinTokens.Worker }}"
+      when: join_token_worker is not defined
+
+    - name: Add nodes
+      community.docker.docker_swarm:
+        state: join
+        join_token: join_token_worker
+      when: "'workers' in group_names and 'managers' not in group_names"

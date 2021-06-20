@@ -9,7 +9,7 @@
     # The location of the Azure resources
     location: eastus
 
-    # environemnt instance
+    # environment instance
     instance_config:
       development:
         abbreviation: dev
@@ -85,7 +85,7 @@
         storage_account_name: "{{ storage.state.name }}"
         container: vhds
 
-    # Virutal Machines - Managers
+    # Virtual Machines - Managers
     - import_tasks: vm.yml
       vars:
         vm_name_affix: manager001
@@ -95,12 +95,12 @@
         ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
         storage_account: "{{ storage.state.name }}"
 
-    # Virutal Machines - Workers
-    # - import_tasks: vm.yml
-    #   vars:
-    #     vm_name_affix: worker001
-    #     vm_subnet: "{{ workers_subnet.state.name }}"
-    #     vm_nsg: "{{ nsg.state.name }}"
-    #     vm_size: Standard_D2_v3
-    #     ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
-    #     storage_account: "{{ storage.state.name }}"
+    # Virtual Machines - Workers
+    - import_tasks: vm.yml
+      vars:
+        vm_name_affix: worker001
+        vm_subnet: "{{ workers_subnet.state.name }}"
+        vm_nsg: "{{ nsg.state.name }}"
+        vm_size: Standard_D2_v3
+        ssh_key_data: "{{ lookup('file', ssh_key_file_path) }}"
+        storage_account: "{{ storage.state.name }}"
