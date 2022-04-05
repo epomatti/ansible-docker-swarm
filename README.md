@@ -4,7 +4,7 @@ Code to provision and configure a Docker Swarm cluster on Azure Cloud using Ansi
 
 ## Swarm
 
-<img src="docs/cluster.png" width=450>
+<img src="docs/cluster.png" width=550>
 
 
 ## Running it
